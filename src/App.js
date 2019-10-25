@@ -23,7 +23,7 @@ function App() {
   console.log("TCL: App -> time", time);
   const { hours, minutes, seconds } = time;
   return (
-    <Svg width="300" height="300">
+    <Svg viewBox="0 0 300 300">
       <circle cx="150" cy="150" r="100" fill="green" />
       <g
         id="hours"
