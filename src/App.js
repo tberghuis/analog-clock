@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { timeSubject } from "./time";
+import { timeSubject, getTime } from "./time";
 import styled from "styled-components";
 
 function useTime() {
-  // const [time, setTime] = useState(Date.now());
-  const [time, setTime] = useState(null);
+  const [time, setTime] = useState(getTime());
   useEffect(() => {
     const sub = timeSubject.subscribe(_time => setTime(_time));
     return () => sub.unsubscribe();
@@ -14,33 +13,26 @@ function useTime() {
 }
 
 function App() {
-  const time = useTime();
-
-  if (!time) {
-    return null;
-  }
-
-  console.log("TCL: App -> time", time);
-  const { hours, minutes, seconds } = time;
+  const { hours, minutes, seconds } = useTime();
   return (
     <Svg viewBox="0 0 300 300">
       <circle cx="150" cy="150" r="100" fill="green" />
+      {/* hours */}
       <g
-        id="hours"
         transform={`rotate(${hours * 30 + (minutes / 60) * 30},150,150)`}
         style={{ stroke: "black" }}
       >
         <line strokeWidth="4" x1="150" y1="150" x2="150" y2="90" />
       </g>
+      {/* minutes */}
       <g
-        id="minutes"
         transform={`rotate(${minutes * 6},150,150)`}
         style={{ stroke: "black" }}
       >
         <line strokeWidth="2" x1="150" y1="150" x2="150" y2="70" />
       </g>
+      {/* seconds */}
       <g
-        id="seconds"
         transform={`rotate(${seconds * 6},150,150)`}
         style={{ stroke: "black" }}
       >
@@ -64,7 +56,7 @@ function App() {
 export default App;
 
 const Svg = styled.svg`
-  background-color: pink;
+  /* background-color: pink; */
 `;
 
 const markers = Array.from(new Array(60), (x, i) => i);
