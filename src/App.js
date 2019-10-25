@@ -45,6 +45,11 @@ function App() {
       >
         <line x1="150" y1="150" x2="150" y2="50" />
       </g>
+
+      {marker(0)}
+      {marker(15)}
+      {marker(30)}
+      {marker(45)}
     </Svg>
   );
 }
@@ -54,3 +59,16 @@ export default App;
 const Svg = styled.svg`
   background-color: pink;
 `;
+
+const marker = markerPos => {
+  return (
+    <g transform="translate(150,150) rotate(-90)" style={{ stroke: "black" }}>
+      <line
+        x1={90 * Math.cos((Math.PI / 30) * markerPos)}
+        y1={90 * Math.sin((Math.PI / 30) * markerPos)}
+        x2={100 * Math.cos((Math.PI / 30) * markerPos)}
+        y2={100 * Math.sin((Math.PI / 30) * markerPos)}
+      />
+    </g>
+  );
+};
