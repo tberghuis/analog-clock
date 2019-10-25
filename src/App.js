@@ -53,6 +53,10 @@ function App() {
       {markers5Min.map((m, i) => (
         <React.Fragment key={i}>{draw5MinMarker(m)}</React.Fragment>
       ))}
+
+      {labels.map((l, i) => (
+        <React.Fragment key={i}>{drawLabel(l, i)}</React.Fragment>
+      ))}
     </Svg>
   );
 }
@@ -65,6 +69,24 @@ const Svg = styled.svg`
 
 const markers = Array.from(new Array(60), (x, i) => i);
 const markers5Min = markers.filter(m => m % 5 === 0);
+
+const labels = ["3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "1", "2"];
+
+const drawLabel = (label, markerPos) => {
+  return (
+    <g transform="translate(150,150)">
+      <text
+        textAnchor="middle"
+        alignmentBaseline="central"
+        x={80 * Math.cos((Math.PI / 30) * markerPos * 5)}
+        y={80 * Math.sin((Math.PI / 30) * markerPos * 5)}
+        class="small"
+      >
+        {label}
+      </text>
+    </g>
+  );
+};
 
 const drawMarker = markerPos => {
   return (
