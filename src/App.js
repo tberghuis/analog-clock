@@ -19,6 +19,7 @@ function App() {
   if (!time) {
     return null;
   }
+
   console.log("TCL: App -> time", time);
   const { hours, minutes, seconds } = time;
   return (
@@ -29,14 +30,14 @@ function App() {
         transform={`rotate(${hours * 30 + (minutes / 60) * 30},150,150)`}
         style={{ stroke: "black" }}
       >
-        <line x1="150" y1="150" x2="150" y2="90" />
+        <line strokeWidth="4" x1="150" y1="150" x2="150" y2="90" />
       </g>
       <g
         id="minutes"
         transform={`rotate(${minutes * 6},150,150)`}
         style={{ stroke: "black" }}
       >
-        <line x1="150" y1="150" x2="150" y2="70" />
+        <line strokeWidth="2" x1="150" y1="150" x2="150" y2="70" />
       </g>
       <g
         id="seconds"
@@ -46,10 +47,12 @@ function App() {
         <line x1="150" y1="150" x2="150" y2="50" />
       </g>
 
-      {marker(0)}
-      {marker(15)}
-      {marker(30)}
-      {marker(45)}
+      {markers.map((m, i) => (
+        <React.Fragment key={i}>{drawMarker(m)}</React.Fragment>
+      ))}
+      {markers5Min.map((m, i) => (
+        <React.Fragment key={i}>{draw5MinMarker(m)}</React.Fragment>
+      ))}
     </Svg>
   );
 }
@@ -60,10 +63,27 @@ const Svg = styled.svg`
   background-color: pink;
 `;
 
-const marker = markerPos => {
+const markers = Array.from(new Array(60), (x, i) => i);
+const markers5Min = markers.filter(m => m % 5 === 0);
+
+const drawMarker = markerPos => {
   return (
     <g transform="translate(150,150) rotate(-90)" style={{ stroke: "black" }}>
       <line
+        x1={94 * Math.cos((Math.PI / 30) * markerPos)}
+        y1={94 * Math.sin((Math.PI / 30) * markerPos)}
+        x2={100 * Math.cos((Math.PI / 30) * markerPos)}
+        y2={100 * Math.sin((Math.PI / 30) * markerPos)}
+      />
+    </g>
+  );
+};
+
+const draw5MinMarker = markerPos => {
+  return (
+    <g transform="translate(150,150) rotate(-90)" style={{ stroke: "black" }}>
+      <line
+        strokeWidth="2"
         x1={90 * Math.cos((Math.PI / 30) * markerPos)}
         y1={90 * Math.sin((Math.PI / 30) * markerPos)}
         x2={100 * Math.cos((Math.PI / 30) * markerPos)}
