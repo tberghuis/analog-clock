@@ -42,6 +42,7 @@ export default Clock;
 
 const Svg = styled.svg`
   /* background-color: pink; */
+  max-width: 500px;
 `;
 
 const Frame = styled.circle`
