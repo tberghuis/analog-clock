@@ -115,6 +115,7 @@ const drawHourLabel = (label, hourLabelIndex) => {
     <text
       textAnchor="middle"
       alignmentBaseline="central"
+      dominantBaseline="central"
       x={80 * Math.cos(markerIndexToRadians(hourLabelIndex * 5))}
       y={80 * Math.sin(markerIndexToRadians(hourLabelIndex * 5))}
     >
