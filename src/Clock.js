@@ -63,28 +63,30 @@ const HoursHand = styled.g`
 const minuteMarkers = Array.from(new Array(60), (x, i) => i);
 const fiveMinuteMarkers = minuteMarkers.filter(m => m % 5 === 0);
 
-const drawMarker = markerPos => {
+const markerIndexToRadians = markerIndex => (Math.PI * markerIndex) / 30;
+
+const drawMarker = markerIndex => {
   return (
     <g style={{ stroke: "black" }}>
       <line
-        x1={94 * Math.cos((Math.PI / 30) * markerPos)}
-        y1={94 * Math.sin((Math.PI / 30) * markerPos)}
-        x2={100 * Math.cos((Math.PI / 30) * markerPos)}
-        y2={100 * Math.sin((Math.PI / 30) * markerPos)}
+        x1={94 * Math.cos(markerIndexToRadians(markerIndex))}
+        y1={94 * Math.sin(markerIndexToRadians(markerIndex))}
+        x2={100 * Math.cos(markerIndexToRadians(markerIndex))}
+        y2={100 * Math.sin(markerIndexToRadians(markerIndex))}
       />
     </g>
   );
 };
 
-const draw5MinMarker = markerPos => {
+const draw5MinMarker = markerIndex => {
   return (
     <g style={{ stroke: "black" }}>
       <line
         strokeWidth="2"
-        x1={90 * Math.cos((Math.PI / 30) * markerPos)}
-        y1={90 * Math.sin((Math.PI / 30) * markerPos)}
-        x2={100 * Math.cos((Math.PI / 30) * markerPos)}
-        y2={100 * Math.sin((Math.PI / 30) * markerPos)}
+        x1={90 * Math.cos(markerIndexToRadians(markerIndex))}
+        y1={90 * Math.sin(markerIndexToRadians(markerIndex))}
+        x2={100 * Math.cos(markerIndexToRadians(markerIndex))}
+        y2={100 * Math.sin(markerIndexToRadians(markerIndex))}
       />
     </g>
   );
@@ -105,13 +107,13 @@ const hourLabels = [
   "2"
 ];
 
-const drawHourLabel = (label, markerPos) => {
+const drawHourLabel = (label, hourLabelIndex) => {
   return (
     <text
       textAnchor="middle"
       alignmentBaseline="central"
-      x={80 * Math.cos((Math.PI / 30) * markerPos * 5)}
-      y={80 * Math.sin((Math.PI / 30) * markerPos * 5)}
+      x={80 * Math.cos(markerIndexToRadians(hourLabelIndex * 5))}
+      y={80 * Math.sin(markerIndexToRadians(hourLabelIndex * 5))}
     >
       {label}
     </text>
