@@ -11,7 +11,7 @@ const Clock = () => {
         <Frame r="110" />
 
         {minuteMarkers.map((m, i) => (
-          <React.Fragment key={i}>{drawMarker(m)}</React.Fragment>
+          <React.Fragment key={i}>{drawMinuteMarker(m)}</React.Fragment>
         ))}
         {fiveMinuteMarkers.map((m, i) => (
           <React.Fragment key={i}>{draw5MinMarker(m)}</React.Fragment>
@@ -65,7 +65,7 @@ const fiveMinuteMarkers = minuteMarkers.filter(m => m % 5 === 0);
 
 const markerIndexToRadians = markerIndex => (Math.PI * markerIndex) / 30;
 
-const drawMarker = markerIndex => {
+const drawMinuteMarker = markerIndex => {
   return (
     <g style={{ stroke: "black" }}>
       <line
