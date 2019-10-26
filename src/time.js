@@ -1,4 +1,4 @@
-import { Subject } from "rxjs";
+import { useState, useEffect } from "react";
 
 const dateToTimeObject = date => {
   const hours = date.getHours();
@@ -7,12 +7,16 @@ const dateToTimeObject = date => {
   return { hours, minutes, seconds };
 };
 
-let time = dateToTimeObject(new Date());
+const getTime = () => dateToTimeObject(new Date());
 
-export const timeSubject = new Subject();
+export const useTime = () => {
+  const [time, setTime] = useState(getTime());
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTime(getTime());
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
-export const getTime = () => time;
-
-setInterval(() => {
-  timeSubject.next(dateToTimeObject(new Date()));
-}, 1000);
+  return time;
+};

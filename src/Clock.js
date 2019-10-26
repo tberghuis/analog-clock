@@ -1,5 +1,5 @@
 import React from "react";
-import { useTime } from "./time2";
+import { useTime } from "./time";
 import styled from "styled-components";
 
 const Clock = () => {
